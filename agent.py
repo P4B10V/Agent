@@ -9,8 +9,8 @@ class Agent():
 		if self.so == 'linux':
 			self.so = 'Linux'
 			self.hostname = subprocess.check_output(['hostname'], text=True).strip()
-			self.architecture = subprocess.check_output(["lscpu | grep 'Architecture:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
-			self.model = subprocess.check_output(["lscpu | grep 'Model name:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
+			self.architecture = subprocess.check_output(["LANG=C lscpu | grep 'Architecture:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
+			self.model = subprocess.check_output(["LANG=C lscpu | grep 'Model name:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
 			self.ram = subprocess.check_output(["cat /proc/meminfo | head -n 3 | sed 's/  */ /g'"], shell=True, text=True).strip()
 			self.up = subprocess.check_output(["uptime -p | cut -d ' ' -f 2-5"], shell=True, text=True).strip()
 			self.interfaces = subprocess.check_output(["ip a"], shell=True, text=True).strip()
