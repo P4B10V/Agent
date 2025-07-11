@@ -58,3 +58,8 @@ Software instalado
     Versiones de software clave (Python, Java, etc.)
     Aplicaciones que se inician al arrancar
 
+
+
+### 11/07/2025
+
+<img width="846" height="636" alt="Captura" src="https://github.com/user-attachments/assets/6b5b7eca-515b-4b24-b45b-26eeafb2521f" />
