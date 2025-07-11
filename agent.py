@@ -7,6 +7,7 @@ class Agent():
 		self.so = sys.platform
 
 		if self.so == 'linux':
+			self.so = 'Linux'
 			self.hostname = subprocess.check_output(['hostname'], text=True).strip()
 			self.architecture = subprocess.check_output(["lscpu | grep 'Architecture:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
 			self.model = subprocess.check_output(["lscpu | grep 'Model name:' | cut -d ':' -f2 | xargs"], shell=True, text=True).strip()
@@ -15,13 +16,15 @@ class Agent():
 			self.interfaces = subprocess.check_output(["ip a"], shell=True, text=True).strip()
 			self.processes = subprocess.check_output(["ps -eo pid,user,%cpu,%mem,comm --sort=-%cpu | head -n 6"], shell=True, text=True).strip()
 		elif self.so == 'win32':
-			self.hostname = subprocess.check_output(['powershell', '-Command', '(Get-ComputerInfo).CsName'], text=True).strip()
-			self.architecture = subprocess.check_output(['powershell', '-Command', '(Get-ComputerInfo).OsArchitecture'], shell=True, text=True).strip()
-			self.model = subprocess.check_output(['powershell', '-Command', 'Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name'], shell=True, text=True).strip()
+			self.so = 'Windows'
+			self.hostname = subprocess.check_output(['hostname'], text=True).strip()
+			self.architecture = ""
+			self.model = ""
 			self.ram = ""  
 			self.up = ""
 			self.processes = ""
-			self.interfaces = ""
+			self.interfaces = subprocess.check_output(['ipconfig'], text=True).strip()
+
 
 		else:
 			print("Sistema operativo no reconocido.")
@@ -48,7 +51,8 @@ class Agent():
 		return self.inform()
 
 
-if __name__ == "__main__":
-	agente = Agent()
-	print(agente)
+agente = Agent()
+
+print(agente)
+
 
